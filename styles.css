@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.main-wrapper{
+    display:flex;
+}
+
+/* WRAPPER AROUND THE TOP BAR AND MAIN CONTENT */
+.wrapper {
+    display: flex;  
+    flex-flow: column wrap;
+    width: calc(100vw - 250px);
+    height: 100vh;
+    max-height: 100%;
+}
+.header {
+    background: tomato;
+    height: 40px;
+}
+.main {
+    background: deepskyblue;
+    flex-grow: 3;
+}
+
+/* WRAPS THE LEFTHAND SIDEBAR */
+.aside{
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.top-group{
+    background-color: tomato;
+    height: 110px;
+}
+.middle-group{
+    background-color:lavender;
+    flex-grow: 2;
+}
+.footer {
+    background: lightgreen;
+    height: 30px;
+}
