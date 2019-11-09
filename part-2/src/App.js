@@ -1,5 +1,38 @@
 import React, {Component} from 'react';
+import {ReactComponent as SearchIcon} from './icons/search.svg'
 import './App.css';
+
+class CompanyName extends Component{
+  render(){
+    return (
+      <div style={{
+        padding: '15px 0px 16px 16px',
+        display: 'flex'
+      }}>
+        <div style={{
+          borderRadius: 3,
+          background: 'rgba(55, 53, 47, 0.4)',
+          fontSize: 12,
+          fontWeight: 600,
+          color: 'rgba(255, 255, 255, 0.9)',
+          width: 14,
+          height: 15,
+          padding: '1px 0px 3px 4px'
+        }}>
+          D
+        </div>
+        
+        <div style={{
+          fontSize: 14,
+          marginLeft: '5px',
+          fontWeight: 600
+        }}>
+          Dubsado
+        </div>
+      </div>
+    )
+  }
+}
 
 class SideBar extends Component{
 
@@ -16,7 +49,16 @@ class SideBar extends Component{
 
         <div style={{
           height: 110
-        }}>Item 1</div>
+        }}>
+          <CompanyName />
+
+          <div>
+            <SearchIcon style={{
+              width: 12,
+              fill: 'rgba(55, 53, 47, 0.4)'
+            }}/> Search
+          </div>
+        </div>
 
         <div style={{
           flexGrow:2
