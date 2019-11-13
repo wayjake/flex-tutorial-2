@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ReactComponent as DownIcon} from './icons/down.svg'
+import {ReactComponent as EllipsisIcon} from './icons/ellipsis.svg'
 
 export default class SidebarMiddle extends Component{
     workspaceLinks = [
@@ -162,7 +163,8 @@ export default class SidebarMiddle extends Component{
           flexGrow:2,
           display: 'flex',
           flexFlow: 'column',
-          maxHeight: '100vh'
+          height: '100%',
+          overflow: 'auto'
         }}>
           <SidebarInnerWrapper items={this.workspaceLinks} text="Workspace" />          
           <SidebarInnerWrapper items={this.sharedLinks} text="Shared" />
@@ -206,7 +208,7 @@ export default class SidebarMiddle extends Component{
             marginTop: 5,
             marginBottom: this.state.isOpen ? 15 : 5,
             height: this.state.isOpen ? 'auto' : 15,
-            overflow: 'hidden'
+            overflowY: this.state.isOpen ? 'initial' : 'hidden'
         }}>
             <SidebarHeader text={this.props.text} onHeaderClicked={this.onHeaderClicked} />
             {this.props.items.map((link, key) => 
@@ -265,36 +267,118 @@ export default class SidebarMiddle extends Component{
   }
   
   class DropdownParent extends Component{
+
+    constructor() {
+        super();
+        this.state = {
+          isMouseInside: false
+        };
+    }
+    mouseEnter = () => {
+        this.setState({ isMouseInside: true });
+    }
+    mouseLeave = () => {
+        this.setState({ isMouseInside: false });
+    }
+
     render(){
       return(
         <div style={{
-            display:'flex',
-            paddingLeft: 17,
-            marginTop: 5
-        }}>
-        <DownIcon style={{
-            width: 10,
-            height: 20,
-            fill:  'rgba(55, 53, 47, 0.4)',
-            transform: 'rotate(270deg)' //turned to the right
-        }}/> 
-          <span style={{
-              fontSize: 13,
-              width: 20,
-              marginLeft: 12
-          }}>
-              {this.props.icon} 
-          </span>
-          <span style={{
-              marginLeft: 7,
-              //color: 'rgb(55, 53, 47)', //active
-              color: 'rgba(25, 23, 17, 0.6)',
-              fontWeight: 600,
-              fontSize: 14
-          }}>
-            {this.props.title}
-          </span>
+                display:'flex',
+                paddingLeft: 17,
+                paddingTop: 3,
+                paddingBottom: 3,
+                backgroundColor:  this.state.isMouseInside ? 
+                    'rgba(55, 53, 47, 0.08)' : 'initial'
+            }}
+            onMouseEnter={this.mouseEnter}
+            onMouseLeave={this.mouseLeave}>
+
+            <DownIcon style={{
+                width: 10,
+                height: 20,
+                fill:  'rgba(55, 53, 47, 0.4)',
+                transform: 'rotate(270deg)' //turned to the right
+            }}/> 
+
+            <span style={{
+                fontSize: 13,
+                width: 20,
+                marginLeft: 12
+            }}>
+                {this.props.icon} 
+            </span>
+
+            <span style={{
+                marginLeft: 7,
+                //color: 'rgb(55, 53, 47)', //active
+                color: 'rgba(25, 23, 17, 0.6)',
+                fontWeight: 600,
+                fontSize: 14,
+                flexGrow: 1
+            }}>
+                {this.props.title}
+            </span>
+
+            <UtilityPopup showElipses={this.state.isMouseInside} />
+            
         </div>
       );
+    }
+  }
+
+  class UtilityPopup extends Component{
+    constructor() {
+        super();
+        this.state = {
+          isMouseInside: false,
+          open: false
+        };
+    }
+    mouseEnter = () => {
+        this.setState({ isMouseInside: true });
+    }
+    mouseLeave = () => {
+        this.setState({ isMouseInside: false });
+    }
+
+    buttonClicked = () => {
+        this.setState({
+            open: !this.state.open
+        })
+    }
+
+    render(){
+        return(
+        <div style={{
+            position:'relative'
+        }}>
+            <EllipsisIcon style={{
+                    width: 15,
+                    height: 15,
+                    fill:'rgba(55, 53, 47, 0.6)',
+                    marginRight: 17,
+                    cursor: 'pointer',
+                    opacity: this.props.showElipses ? 1 : 0
+                }}
+                onClick={this.buttonClicked}
+            /> 
+            {this.state.open && <div style={{
+                height: 100,
+                position: 'absolute',
+                top: 20,
+                padding: 20,
+                width: 150,
+                margin: 0,
+                background: '#ccc',
+                maxWidth: 'calc(100vw - 24px)',
+                boxShadow: 'rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px',
+                borderRadius: 3,  
+                zIndex: 1
+            }}>
+                Inner
+            </div> }
+        </div>
+        );
     }
   }

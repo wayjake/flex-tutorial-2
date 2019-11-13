@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ReactComponent as SearchIcon} from './icons/search.svg'
 import {ReactComponent as ClockIcon} from './icons/clock.svg'
 import {ReactComponent as SettingsIcon} from './icons/settings.svg'
+import {ReactComponent as ArrowDownIcon} from './icons/arrow-down.svg'
 
 export default class SidebarTop extends Component{
 
@@ -15,7 +16,7 @@ export default class SidebarTop extends Component{
     render(){
       return (
         <div style={{
-          height: 150
+          height: 170
         }}>
           <CompanyName />
   
@@ -62,6 +63,13 @@ export default class SidebarTop extends Component{
           }}>
             Dubsado
           </div>
+          <ArrowDownIcon style={{
+            width: 8,
+            height: 8,
+            marginLeft: 10,
+            marginTop: 6,
+            fill:'rgba(55, 53, 47, 0.6)',
+          }}/>
         </div>
       )
     }
